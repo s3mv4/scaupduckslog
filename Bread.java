@@ -17,6 +17,12 @@ public class Bread implements MouseListener {
         }
     }
 
+    public void update() {
+        for (Point breadPoint : breadPoints) {
+            breadPoint.y += 2;
+        }
+    }
+
     public void listen(JPanel gamePanel) {
         gamePanel.addMouseListener(this);
     }
