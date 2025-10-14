@@ -1,11 +1,34 @@
+import java.awt.*;
 import java.awt.event.*;
-public class Bread implements MouseListener {
+import java.util.LinkedList;
+import javax.swing.*;
+
+public class Bread extends JPanel implements MouseListener {
+    private LinkedList<Point> breadPoints = new LinkedList<>();
+    private int breadSize = 10;
+
+    public Bread() {
+        setBackground(new Color(0,0,0));
+        addMouseListener(this);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(new Color(139, 69, 19));
+        for (Point breadPoint : breadPoints) {
+            g.fillRect(breadPoint.x, breadPoint.y, breadSize, breadSize);
+        }
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        // draw square at that point
-        System.out.println("Mouse pressed at: " + x + ", " + y);
+        Point clickedAt = e.getPoint();
+        if (breadPoints.size() == 5) {
+            breadPoints.removeFirst();
+        }
+        breadPoints.add(clickedAt);
+        repaint();
     }
 
     @Override
