@@ -3,11 +3,12 @@ import javax.swing.*;
 public class Main {
     void update() {
         JFrame frame = new JFrame ("Scaup Ducks Log");
-        Bread breadPanel = new Bread();
+        GamePanel gamePanel = new GamePanel();
 
-        breadPanel.addMouseListener(breadPanel);
+        Bread bread = new Bread(gamePanel);
+        gamePanel.setBread(bread);
 
-        frame.add(breadPanel);
+        frame.add(gamePanel);
         frame.setSize(400, 300);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

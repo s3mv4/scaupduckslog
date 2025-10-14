@@ -3,17 +3,15 @@ import java.awt.event.*;
 import java.util.LinkedList;
 import javax.swing.*;
 
-public class Bread extends JPanel implements MouseListener {
+public class Bread implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
     private final int breadSize = 10;
 
-    public Bread() {
-        setBackground(new Color(0,0,0));
+    public Bread(JPanel gamePanel) {
+        gamePanel.addMouseListener(this);
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void draw(Graphics g) {
         g.setColor(new Color(139, 69, 19));
         for (Point breadPoint : breadPoints) {
             g.fillRect(breadPoint.x - breadSize/2, 
@@ -30,7 +28,7 @@ public class Bread extends JPanel implements MouseListener {
             breadPoints.removeFirst();
         }
         breadPoints.add(clickedAt);
-        repaint();
+        e.getComponent().repaint();
     }
 
     @Override
