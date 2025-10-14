@@ -7,10 +7,6 @@ public class Bread implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
     private final int breadSize = 10;
 
-    public Bread(JPanel gamePanel) {
-        gamePanel.addMouseListener(this);
-    }
-
     public void draw(Graphics g) {
         g.setColor(new Color(139, 69, 19));
         for (Point breadPoint : breadPoints) {
@@ -19,6 +15,10 @@ public class Bread implements MouseListener {
                 breadSize, 
                 breadSize);
         }
+    }
+
+    public void listen(JPanel gamePanel) {
+        gamePanel.addMouseListener(this);
     }
 
     @Override

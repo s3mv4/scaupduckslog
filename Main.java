@@ -4,8 +4,9 @@ public class Main {
     void update() {
         JFrame frame = new JFrame ("Scaup Ducks Log");
         GamePanel gamePanel = new GamePanel();
+        Bread bread = new Bread();
 
-        Bread bread = new Bread(gamePanel);
+        bread.listen(gamePanel);
         gamePanel.setBread(bread);
 
         frame.add(gamePanel);
