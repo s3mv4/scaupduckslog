@@ -4,12 +4,11 @@ import java.util.LinkedList;
 import javax.swing.*;
 
 public class Bread extends JPanel implements MouseListener {
-    private LinkedList<Point> breadPoints = new LinkedList<>();
-    private int breadSize = 10;
+    private final LinkedList<Point> breadPoints = new LinkedList<>();
+    private final int breadSize = 10;
 
     public Bread() {
         setBackground(new Color(0,0,0));
-        addMouseListener(this);
     }
 
     @Override
@@ -17,7 +16,10 @@ public class Bread extends JPanel implements MouseListener {
         super.paintComponent(g);
         g.setColor(new Color(139, 69, 19));
         for (Point breadPoint : breadPoints) {
-            g.fillRect(breadPoint.x, breadPoint.y, breadSize, breadSize);
+            g.fillRect(breadPoint.x - breadSize/2, 
+                breadPoint.y - breadSize/2, 
+                breadSize, 
+                breadSize);
         }
     }
 

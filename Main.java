@@ -1,10 +1,11 @@
-import java.awt.*;
 import javax.swing.*;
 
 public class Main {
     void update() {
         JFrame frame = new JFrame ("Scaup Ducks Log");
         Bread breadPanel = new Bread();
+
+        breadPanel.addMouseListener(breadPanel);
 
         frame.add(breadPanel);
         frame.setSize(400, 300);
