@@ -5,8 +5,8 @@ public class Main {
         JFrame frame = new JFrame ("Scaup Ducks Log");
         JPanel panel = new JPanel();
         frame.add(panel);
-        panel.setBackground(new Color(0, 0, 0));
-        frame.setSize(400, 300);
+        panel.setBackground(new Color(153, 247, 98));
+        frame.setSize(500, 700);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
