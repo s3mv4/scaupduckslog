@@ -20,11 +20,26 @@ public class Duck {
 
     public void draw(Graphics g) {
         if (duckImage != null) {
+            int originalWidth = duckImage.getWidth();
+            int originalHeight = duckImage.getHeight();
+            int newWidth;
+            int newHeight;
+
+            double aspectRatio = originalWidth / originalHeight;
+
+            if (aspectRatio < 1.0) {
+                newHeight = duckSize;
+                newWidth = (int) (duckSize * aspectRatio);
+            } else {
+                newWidth = duckSize;
+                newHeight = (int) (duckSize / aspectRatio);
+            }
+
             g.drawImage(duckImage,
                 duckPoint.x - duckImage.getWidth() / 2,
                 duckPoint.y - duckImage.getHeight() / 2, 
-                duckSize,
-                duckSize,
+                newWidth,
+                newHeight,
                 null);
         }
     }
