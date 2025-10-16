@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class GamePanel extends JPanel {
     private Bread bread;
+    private Duck duck;
     public int frameRate = 60;
 
     public GamePanel() {
@@ -25,11 +26,18 @@ public class GamePanel extends JPanel {
         this.bread = bread;
     }
 
+    public void setDuck(Duck duck) {
+        this.duck = duck;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (bread != null) {
             bread.draw(g);
+        }
+        if (duck != null) {
+            duck.draw(g);
         }
     }
 }

@@ -19,7 +19,7 @@ public class Bread implements MouseListener {
 
     public void update() {
         for (Point breadPoint : breadPoints) {
-            breadPoint.y += 2;
+            breadPoint.y += 1;
         }
     }
 
