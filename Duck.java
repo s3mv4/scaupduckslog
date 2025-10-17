@@ -22,6 +22,19 @@ public class Duck {
 
         try {
             duckImage = ImageIO.read(getClass().getResource("/duck.png"));
+
+            int originalWidth = duckImage.getWidth();
+            int originalHeight = duckImage.getHeight();
+
+            double aspectRatio = originalWidth / originalHeight;
+
+            if (aspectRatio < 1.0) {
+                duckHeight = duckSize;
+                duckWidth = (int) (duckSize * aspectRatio);
+            } else {
+                duckWidth = duckSize;
+                duckHeight = (int) (duckSize / aspectRatio);
+            }
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("ducky dead :( no quakking");
         }
@@ -32,20 +45,7 @@ public class Duck {
             return;
         }
 
-        int originalWidth = duckImage.getWidth();
-        int originalHeight = duckImage.getHeight();
-
-        double aspectRatio = originalWidth / originalHeight;
-
         Graphics2D g2d = (Graphics2D) g.create();
-
-        if (aspectRatio < 1.0) {
-            duckHeight = duckSize;
-            duckWidth = (int) (duckSize * aspectRatio);
-        } else {
-            duckWidth = duckSize;
-            duckHeight = (int) (duckSize / aspectRatio);
-        }
 
         // Translate to the center of the duck
         g2d.translate(duckPoint.x, duckPoint.y);
