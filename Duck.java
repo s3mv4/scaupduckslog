@@ -12,6 +12,8 @@ public class Duck {
     private BufferedImage duckImage;
     private double movementAngle = 0;
     private double rotationAngle = 0;
+    int duckWidth;
+    int duckHeight;
 
     public Duck() {
         duckX = 200;
@@ -32,19 +34,17 @@ public class Duck {
 
         int originalWidth = duckImage.getWidth();
         int originalHeight = duckImage.getHeight();
-        int newWidth;
-        int newHeight;
 
         double aspectRatio = originalWidth / originalHeight;
 
         Graphics2D g2d = (Graphics2D) g.create();
 
         if (aspectRatio < 1.0) {
-            newHeight = duckSize;
-            newWidth = (int) (duckSize * aspectRatio);
+            duckHeight = duckSize;
+            duckWidth = (int) (duckSize * aspectRatio);
         } else {
-            newWidth = duckSize;
-            newHeight = (int) (duckSize / aspectRatio);
+            duckWidth = duckSize;
+            duckHeight = (int) (duckSize / aspectRatio);
         }
 
         // Translate to the center of the duck
@@ -54,7 +54,7 @@ public class Duck {
         g2d.rotate(rotationAngle);
 
         // Duck already translated so no need for duckPoint.x and duckPoint.y
-        g2d.drawImage(duckImage, - newWidth / 2, - newHeight / 2, newWidth, newHeight, null);
+        g2d.drawImage(duckImage, - duckWidth / 2, - duckHeight / 2, duckWidth, duckHeight, null);
 
         g2d.dispose();
     }
@@ -82,12 +82,31 @@ public class Duck {
         movementAngle = Math.atan2(minimalPoint.y - duckPoint.y, minimalPoint.x - duckPoint.x);
         rotationAngle = movementAngle + Math.PI / 2;
 
-        duckX += Math.cos(movementAngle) * 1;
+        duckX += Math.cos(movementAngle) * 2;
         duckY += Math.sin(movementAngle) * 2;
+    }
+
+    public void checkCollision(Bread bread) {
+        LinkedList<Point> breadPoints = bread.getBreadPoints();
+        Point removePoint = null;
+
+        for (Point breadPoint : breadPoints) {
+            if (breadPoint.x < duckX + duckWidth / 2
+                && breadPoint.x > duckX - duckWidth / 2
+                && breadPoint.y < duckY + duckWidth / 2
+                && breadPoint.y > duckY - duckWidth / 2) {
+                    removePoint = breadPoint;
+                }
+        }
+
+        if (removePoint != null) {
+            breadPoints.remove(removePoint);
+        }
     }
 
     public void update(Bread bread) {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
+        checkCollision(bread);
     }
 }
