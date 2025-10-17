@@ -27,6 +27,10 @@ public class Bread implements MouseListener {
         gamePanel.addMouseListener(this);
     }
 
+    public LinkedList<Point> getBreadPoints() {
+        return breadPoints;
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
         Point clickedAt = e.getPoint();
