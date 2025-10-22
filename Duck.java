@@ -21,12 +21,12 @@ public class Duck {
         duckPoint = new Point((int) duckX, (int) duckY);
 
         try {
-            duckImage = ImageIO.read(getClass().getResource("/duck.png"));
+            duckImage = ImageIO.read(getClass().getResource("/duck2.png"));
 
             int originalWidth = duckImage.getWidth();
             int originalHeight = duckImage.getHeight();
 
-            double aspectRatio = originalWidth / originalHeight;
+            double aspectRatio = (double) originalWidth / originalHeight;
 
             if (aspectRatio < 1.0) {
                 duckHeight = duckSize;
