@@ -73,24 +73,33 @@ public class Duck {
         g2d.dispose();
     }
 
+    public Point findClosestBread(int index, Point minimalPoint, double minimalDistance, LinkedList<Point> breadPoints) {
+        if (index > breadPoints.size() - 1) {
+            return minimalPoint;
+        }
+
+        Point breadPoint = breadPoints.get(index);
+        double distance = Math.sqrt(Math.pow((breadPoint.x - duckPoint.x), 2) + Math.pow((breadPoint.y - duckPoint.y), 2));
+
+        if (distance < minimalDistance) {
+            minimalDistance = distance;
+            minimalPoint = breadPoint;
+        }
+
+        return findClosestBread(index + 1, minimalPoint, minimalDistance, breadPoints);
+    }
+
     public void rotateDuck(Bread bread) {
         LinkedList<Point> breadPoints = bread.getBreadPoints();
         Point minimalPoint = null;
-        double minimalDistance = Double.MAX_VALUE;
 
         duckY += 1;
 
-        if (breadPoints == null | breadPoints.isEmpty()) {
+        if (breadPoints == null || breadPoints.isEmpty()) {
             return;
         }
 
-        for (Point breadPoint : breadPoints) {
-            double distance = Math.sqrt(Math.pow((breadPoint.x - duckPoint.x), 2) + Math.pow((breadPoint.y - duckPoint.y), 2));
-            if (distance < minimalDistance) {
-                minimalDistance = distance;
-                minimalPoint = breadPoint;
-            }
-        }
+        minimalPoint = findClosestBread(0, null, Double.MAX_VALUE, breadPoints);
 
         // rotate duck towards minimalPoint
         movementAngle = Math.atan2(minimalPoint.y - duckPoint.y, minimalPoint.x - duckPoint.x);
