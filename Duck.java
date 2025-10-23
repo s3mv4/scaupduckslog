@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -10,6 +11,7 @@ public class Duck {
     private double duckX;
     private double duckY;
     private BufferedImage duckImage;
+    private BufferedImage flippedDuckImage;
     private double movementAngle = 0;
     private double rotationAngle = 0;
     int duckWidth;
@@ -21,7 +23,15 @@ public class Duck {
         duckPoint = new Point((int) duckX, (int) duckY);
 
         try {
-            duckImage = ImageIO.read(getClass().getResource("/duck2.png"));
+            duckImage = ImageIO.read(getClass().getResource("/duck3.png"));
+
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-duckImage.getWidth(), 0);
+
+            flippedDuckImage = new AffineTransformOp(
+                tx,
+                AffineTransformOp.TYPE_NEAREST_NEIGHBOR
+            ).filter(duckImage, null);
 
             int originalWidth = duckImage.getWidth();
             int originalHeight = duckImage.getHeight();
@@ -54,7 +64,11 @@ public class Duck {
         g2d.rotate(rotationAngle);
 
         // Duck already translated so no need for duckPoint.x and duckPoint.y
-        g2d.drawImage(duckImage, - duckWidth / 2, - duckHeight / 2, duckWidth, duckHeight, null);
+        if (rotationAngle > 0 && rotationAngle < Math.PI) {
+            g2d.drawImage(duckImage, - duckWidth / 2, - duckHeight / 2, duckWidth, duckHeight, null);
+        } else {
+            g2d.drawImage(flippedDuckImage, - duckWidth / 2, - duckHeight / 2, duckWidth, duckHeight, null);
+        }
 
         g2d.dispose();
     }
