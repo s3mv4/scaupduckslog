@@ -7,11 +7,15 @@ import javax.imageio.ImageIO;
 public class Logs {
     private final int logSize = 110;
     private BufferedImage logImage;
-    private int logHeight;
     private int logWidth;
+    private int logHeight;
     private ArrayList<Point> logPoints= new ArrayList<>();
+    private int windowWidth;
+    private int windowHeight;
 
-    public Logs() {
+    public Logs(int width, int height) {
+        windowWidth = width;
+        windowHeight = height;
         try {
             logImage = ImageIO.read(getClass().getResource("/log.png"));
 
@@ -46,7 +50,7 @@ public class Logs {
         for (int i = 0; i < 4; i++) {
             randomNum = Math.random();
             if (randomNum >= 0.5) {
-                logPoints.add(new Point(i*125, 0 - logHeight));
+                logPoints.add(new Point(i*(windowWidth/4), 0 - logHeight));
                 logAmount += 1;
             }
         }
@@ -65,6 +69,14 @@ public class Logs {
 
     public ArrayList<Point> getLogPoints() {
         return logPoints;
+    }
+
+    public int getLogWidth() {
+        return logWidth;
+    }
+
+    public int getLogHeight() {
+        return logHeight;
     }
 
     public void reset() {

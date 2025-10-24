@@ -18,10 +18,14 @@ public class Duck {
     private int duckWidth;
     private int duckHeight;
     private boolean gameOver = false;
+    private int windowWidth;
+    private int windowHeight;
 
-    public Duck() {
-        duckX = 250;
-        duckY = 350;
+    public Duck(int width, int height) {
+        windowWidth = width;
+        windowHeight = height;
+        duckX = windowWidth/2;
+        duckY = windowHeight/2;
         duckPoint = new Point((int) duckX, (int) duckY);
 
         try {
@@ -137,9 +141,9 @@ public class Duck {
 
         for (Point logPoint : logPoints) {
             if (logPoint.x < duckX + duckWidth / 2
-                && logPoint.x + 110 > duckX - duckWidth / 2
+                && logPoint.x + logs.getLogWidth() > duckX - duckWidth / 2
                 && logPoint.y < duckY + duckHeight / 2
-                && logPoint.y + 25 > duckY - duckHeight / 2) {
+                && logPoint.y + logs.getLogHeight() > duckY - duckHeight / 2) {
                     System.out.println("Game over digga");
                     gameOver = true;
                 }
@@ -157,14 +161,14 @@ public class Duck {
         checkBreadCollision(bread);
         checkLogsCollision(logs);
 
-        if (duckY - duckHeight / 2 >= 700) {
+        if (duckY - duckHeight / 2 >= windowHeight) {
             gameOver = true;
         }
     }
 
     public void reset() {
-        duckX = 250 - duckWidth / 2;
-        duckY = 350 - duckHeight / 2;
+        duckX = windowWidth/2 - duckWidth / 2;
+        duckY = windowHeight/2 - duckHeight / 2;
         duckPoint.setLocation((int) duckX, (int) duckY);
         movementAngle = 0;
         rotationAngle = 0;

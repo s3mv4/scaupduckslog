@@ -4,9 +4,11 @@ public class Main {
     void update() {
         JFrame frame = new JFrame ("Scaup Ducks Log");
         GamePanel gamePanel = new GamePanel();
+        int windowWidth = 500;
+        int windowHeight = 700;
         Bread bread = new Bread();
-        Duck duck = new Duck();
-        Logs logs = new Logs();
+        Duck duck = new Duck(windowWidth, windowHeight);
+        Logs logs = new Logs(windowWidth, windowHeight);
 
         bread.listen(gamePanel);
         gamePanel.setBread(bread);
@@ -15,7 +17,7 @@ public class Main {
         gamePanel.setDuck(duck);
 
         frame.add(gamePanel);
-        frame.setSize(500, 700);
+        frame.setSize(windowWidth, windowHeight);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
