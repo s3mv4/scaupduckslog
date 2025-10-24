@@ -15,8 +15,8 @@ public class Duck {
     private BufferedImage flippedDuckImage;
     private double movementAngle = 0;
     private double rotationAngle = 0;
-    int duckWidth;
-    int duckHeight;
+    private int duckWidth;
+    private int duckHeight;
     private boolean gameOver = false;
 
     public Duck() {

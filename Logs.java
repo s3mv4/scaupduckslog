@@ -5,15 +5,29 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Logs {
-
+    private final int logSize = 110;
     private BufferedImage logImage;
-    private final int logHeight = 110;
-    private final int logWidth = 25;
+    private int logHeight;
+    private int logWidth;
     private ArrayList<Point> logPoints= new ArrayList<>();
 
     public Logs() {
         try {
             logImage = ImageIO.read(getClass().getResource("/log.png"));
+
+            int originalWidth = logImage.getWidth();
+            int originalHeight = logImage.getHeight();
+
+            double aspectRatio = (double) originalWidth / originalHeight;
+
+            if (aspectRatio < 1.0) {
+                logHeight = logSize;
+                logWidth = (int) (logSize * aspectRatio);
+            } else {
+                logWidth = logSize;
+                logHeight = (int) (logSize / aspectRatio);
+            }
+            System.out.println(logHeight + ", " + logWidth);
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("opa");
         }   
@@ -21,7 +35,7 @@ public class Logs {
 
     public void draw(Graphics g) {
         for (Point logPoint : logPoints ) {
-            g.drawImage(logImage, logPoint.x, logPoint.y, logHeight, logWidth, null);
+            g.drawImage(logImage, logPoint.x, logPoint.y, logWidth, logHeight, null);
         }
     }
 
