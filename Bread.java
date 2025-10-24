@@ -31,6 +31,10 @@ public class Bread implements MouseListener {
         return breadPoints;
     }
 
+    public void reset() {
+        breadPoints.clear();
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
         Point clickedAt = e.getPoint();

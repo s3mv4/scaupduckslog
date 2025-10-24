@@ -11,6 +11,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
+        setFocusable(true);
 
         Timer timer = new Timer(1000/frameRate, new ActionListener() {
             @Override
@@ -44,7 +45,28 @@ public class GamePanel extends JPanel {
         });
         timer.start();
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if (logs != null) {
+                        logs.reset();
+                    }
 
+                    if (bread != null) {
+                        bread.reset();
+                    }
+
+                    if (duck != null) {
+                        duck.reset();
+                    }
+
+                    if (!timer.isRunning()) {
+                        timer.start();
+                    }
+                }
+            }
+        });
     }
 
     public void setBread(Bread bread) {

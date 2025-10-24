@@ -20,8 +20,8 @@ public class Duck {
     private boolean gameOver = false;
 
     public Duck() {
-        duckX = 200;
-        duckY = 150;
+        duckX = 250;
+        duckY = 350;
         duckPoint = new Point((int) duckX, (int) duckY);
 
         try {
@@ -47,6 +47,9 @@ public class Duck {
                 duckWidth = duckSize;
                 duckHeight = (int) (duckSize / aspectRatio);
             }
+
+            duckX -= duckWidth / 2;
+            duckY -= duckHeight / 2;
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("ducky dead :( no quakking");
         }
@@ -157,5 +160,14 @@ public class Duck {
         if (duckY - duckHeight / 2 >= 700) {
             gameOver = true;
         }
+    }
+
+    public void reset() {
+        duckX = 250 - duckWidth / 2;
+        duckY = 350 - duckHeight / 2;
+        duckPoint.setLocation((int) duckX, (int) duckY);
+        movementAngle = 0;
+        rotationAngle = 0;
+        gameOver = false;
     }
 }

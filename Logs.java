@@ -52,4 +52,8 @@ public class Logs {
     public ArrayList<Point> getLogPoints() {
         return logPoints;
     }
+
+    public void reset() {
+        logPoints.clear();
+    }
 }
