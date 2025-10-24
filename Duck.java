@@ -20,7 +20,9 @@ public class Duck {
     private boolean gameOver = false;
     private int windowWidth;
     private int windowHeight;
-    private int collisionBuffer = 10;
+    private int collisionBuffer = 20;
+    private double rotatedDuckWidth;
+    private double rotatedDuckHeight;
 
     public Duck(int width, int height) {
         windowWidth = width;
@@ -138,10 +140,10 @@ public class Duck {
         ArrayList<Point> logPoints = logs.getLogPoints();
 
         for (Point logPoint : logPoints) {
-            if (logPoint.x + collisionBuffer < duckX + duckWidth / 2
-                && logPoint.x + logs.getLogWidth() - collisionBuffer > duckX - duckWidth / 2
-                && logPoint.y + collisionBuffer < duckY + duckHeight / 2
-                && logPoint.y + logs.getLogHeight() - collisionBuffer > duckY - duckHeight / 2) {
+            if (logPoint.x < duckX + rotatedDuckWidth / 2 - collisionBuffer
+                && logPoint.x + logs.getLogWidth() > duckX - rotatedDuckWidth / 2 + collisionBuffer
+                && logPoint.y < duckY + rotatedDuckHeight / 2 - collisionBuffer
+                && logPoint.y + logs.getLogHeight() > duckY - rotatedDuckHeight / 2 + collisionBuffer) {
                     gameOver = true;
                 }
         }
@@ -154,6 +156,9 @@ public class Duck {
     public void update(Bread bread, Logs logs) {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
+
+        rotatedDuckWidth  = duckWidth * Math.abs(Math.cos(rotationAngle)) + duckHeight * Math.abs(Math.sin(rotationAngle));
+        rotatedDuckHeight = duckWidth * Math.abs(Math.sin(rotationAngle)) + duckHeight * Math.abs(Math.cos(rotationAngle));
 
         checkBreadCollision(bread);
         checkLogsCollision(logs);
