@@ -35,17 +35,6 @@ public class Logs extends JPanel {
 
         addLogs();
 
-       Timer logGameTimer = new Timer(100000,new ActionListener() {
-           
-            public void actionPerformed(ActionEvent e) {
-                update();
-                repaint();
-            }
-
-        }
-        );
-        logGameTimer.start();
-
         Timer logSpawnTimer = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addLogs();
@@ -99,17 +88,6 @@ public class Logs extends JPanel {
         for (Point logPoint : logPoints) {
             logPoint.y += 5; 
         }
-
-         
-
-        // run every 5 sekunden HEUTE FERTIG!!!
-
-       
-        
-       
-
-        
-        
     }
 
     
