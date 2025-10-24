@@ -48,7 +48,7 @@ public class Logs extends JPanel {
                     }
                 }
 
-                if (movement != 0 && speed < 50){
+                if (movement != 0 && speed < 50) {
                     speed += 2;
                     movement = movement + 1;
                 }

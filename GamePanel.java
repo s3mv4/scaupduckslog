@@ -9,6 +9,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
+        
 
         Timer timer = new Timer(1000/frameRate, new ActionListener() {
             @Override
