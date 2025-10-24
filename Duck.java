@@ -93,7 +93,7 @@ public class Duck {
         LinkedList<Point> breadPoints = bread.getBreadPoints();
         Point minimalPoint = null;
 
-        duckY += 1;
+        duckY += 5;
 
         if (breadPoints == null || breadPoints.isEmpty()) {
             return;
@@ -105,8 +105,8 @@ public class Duck {
         movementAngle = Math.atan2(minimalPoint.y - duckPoint.y, minimalPoint.x - duckPoint.x);
         rotationAngle = movementAngle + Math.PI / 2;
 
-        duckX += Math.cos(movementAngle) * 2;
-        duckY += Math.sin(movementAngle) * 2;
+        duckX += Math.cos(movementAngle) * 5;
+        duckY += Math.sin(movementAngle) * 5;
     }
 
     public void checkCollision(Bread bread) {

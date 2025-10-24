@@ -5,10 +5,12 @@ import javax.swing.*;
 public class GamePanel extends JPanel {
     private Bread bread;
     private Duck duck;
+    private Logs logs;
     public int frameRate = 60;
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
+        
 
         Timer timer = new Timer(1000/frameRate, new ActionListener() {
             @Override
@@ -19,10 +21,15 @@ public class GamePanel extends JPanel {
                 if (duck != null) {
                     duck.update(bread);
                 }
+                if (logs != null) {
+                    logs.update();
+                }
                 repaint();
             }
         });
         timer.start();
+
+
     }
 
     public void setBread(Bread bread) {
@@ -31,6 +38,9 @@ public class GamePanel extends JPanel {
 
     public void setDuck(Duck duck) {
         this.duck = duck;
+    }
+    public void setLogs(Logs logs) {
+        this.logs = logs;
     }
 
     @Override
@@ -41,6 +51,9 @@ public class GamePanel extends JPanel {
         }
         if (duck != null) {
             duck.draw(g);
+        }
+        if (logs != null) {
+            logs.draw(g);
         }
     }
 }

@@ -6,14 +6,16 @@ public class Main {
         GamePanel gamePanel = new GamePanel();
         Bread bread = new Bread();
         Duck duck = new Duck();
+        Logs logs = new Logs();
 
         bread.listen(gamePanel);
         gamePanel.setBread(bread);
+        gamePanel.setLogs(logs);
 
         gamePanel.setDuck(duck);
 
         frame.add(gamePanel);
-        frame.setSize(400, 300);
+        frame.setSize(500, 700);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
