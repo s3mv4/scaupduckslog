@@ -29,7 +29,6 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (duck != null && duck.getGameOver()) {
-                    drawGameOverScreen();
                     drawDeadDuck = true;
                 } else {
                     if (bread != null) {
@@ -130,9 +129,5 @@ public class GamePanel extends JPanel {
 
             g2d.dispose();
         }
-    }
-
-    public void drawGameOverScreen() {
-
     }
 }
