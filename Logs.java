@@ -1,20 +1,10 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.IOException;
-import java.nio.file.Path;
-
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 import java.util.ArrayList;
-import java.util.TimerTask;
+import javax.imageio.ImageIO;
 
-
-
-
-public class Logs extends JPanel {
+public class Logs {
 
     private BufferedImage logImage;
     private final int logHeight = 110;
@@ -22,44 +12,17 @@ public class Logs extends JPanel {
     private ArrayList<Point> logPoints= new ArrayList<>();
 
     public Logs() {
-
-
         try {
             logImage = ImageIO.read(getClass().getResource("/log.png"));
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("opa");
         }   
-
-        addLogs();
-
-        Timer logSpawnTimer = new Timer(1000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addLogs();
-                
-            }
-        });
-        logSpawnTimer.start();
-    
-        logSpawnTimer.setRepeats(true);
-        logSpawnTimer.setCoalesce(true); 
-
     }
-
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        draw(g);
-    }
-     
 
     public void draw(Graphics g) {
-        
         for (Point logPoint : logPoints ) {
             g.drawImage(logImage, logPoint.x, logPoint.y, logHeight, logWidth, null);
-
         }
-
-
     }
 
     public void addLogs() {
