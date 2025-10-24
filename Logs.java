@@ -32,7 +32,7 @@ public class Logs {
         for (int i = 0; i < 4; i++) {
             randomNum = Math.random();
             if (randomNum >= 0.5) {
-                logPoints.add(new Point(i*125, 0));
+                logPoints.add(new Point(i*125, 0 - logHeight));
                 logAmount += 1;
             }
         }
