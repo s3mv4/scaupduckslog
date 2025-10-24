@@ -118,8 +118,8 @@ public class Duck {
         for (Point breadPoint : breadPoints) {
             if (breadPoint.x < duckX + duckWidth / 2
                 && breadPoint.x > duckX - duckWidth / 2
-                && breadPoint.y < duckY + duckWidth / 2
-                && breadPoint.y > duckY - duckWidth / 2) {
+                && breadPoint.y < duckY + duckHeight / 2
+                && breadPoint.y > duckY - duckHeight / 2) {
                     removePoint = breadPoint;
                 }
         }
@@ -135,8 +135,8 @@ public class Duck {
         for (Point logPoint : logPoints) {
             if (logPoint.x < duckX + duckWidth / 2
                 && logPoint.x + 110 > duckX - duckWidth / 2
-                && logPoint.y < duckY + duckWidth / 2
-                && logPoint.y + 25 > duckY - duckWidth / 2) {
+                && logPoint.y < duckY + duckHeight / 2
+                && logPoint.y + 25 > duckY - duckHeight / 2) {
                     System.out.println("Game over digga");
                     gameOver = true;
                 }
@@ -150,7 +150,12 @@ public class Duck {
     public void update(Bread bread, Logs logs) {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
+
         checkBreadCollision(bread);
         checkLogsCollision(logs);
+
+        if (duckY - duckHeight / 2 >= 700) {
+            gameOver = true;
+        }
     }
 }
