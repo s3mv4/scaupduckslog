@@ -20,6 +20,7 @@ public class Duck {
     private boolean gameOver = false;
     private int windowWidth;
     private int windowHeight;
+    private int collisionBuffer = 10;
 
     public Duck(int width, int height) {
         windowWidth = width;
@@ -140,10 +141,10 @@ public class Duck {
         ArrayList<Point> logPoints = logs.getLogPoints();
 
         for (Point logPoint : logPoints) {
-            if (logPoint.x < duckX + duckWidth / 2
-                && logPoint.x + logs.getLogWidth() > duckX - duckWidth / 2
-                && logPoint.y < duckY + duckHeight / 2
-                && logPoint.y + logs.getLogHeight() > duckY - duckHeight / 2) {
+            if (logPoint.x + collisionBuffer < duckX + duckWidth / 2
+                && logPoint.x + logs.getLogWidth() - collisionBuffer > duckX - duckWidth / 2
+                && logPoint.y + collisionBuffer < duckY + duckHeight / 2
+                && logPoint.y + logs.getLogHeight() - collisionBuffer > duckY - duckHeight / 2) {
                     System.out.println("Game over digga");
                     gameOver = true;
                 }
