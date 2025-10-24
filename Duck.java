@@ -52,9 +52,6 @@ public class Duck {
                 duckWidth = duckSize;
                 duckHeight = (int) (duckSize / aspectRatio);
             }
-
-            duckX -= duckWidth / 2;
-            duckY -= duckHeight / 2;
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("ducky dead :( no quakking (duck3.png not found)");
         }
@@ -167,8 +164,8 @@ public class Duck {
     }
 
     public void reset() {
-        duckX = windowWidth/2 - duckWidth / 2;
-        duckY = windowHeight/2 - duckHeight / 2;
+        duckX = windowWidth/2;
+        duckY = windowHeight/2;
         duckPoint.setLocation((int) duckX, (int) duckY);
         movementAngle = 0;
         rotationAngle = 0;
