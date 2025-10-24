@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {
     private BufferedImage deadDuckImage;
     private boolean drawDeadDuck = false;
     private float deadDuckAlpha = 0f;
+    private float textAlpha = 0f;
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
@@ -54,6 +55,11 @@ public class GamePanel extends JPanel {
                     deadDuckAlpha += 0.005f;
                     if (deadDuckAlpha >= 1.0f) {
                         deadDuckAlpha = 1f;
+                    }
+                } else if (drawDeadDuck && textAlpha < 1f) {
+                    textAlpha += 0.005f;
+                    if (textAlpha >= 1.0f) {
+                        textAlpha = 1f;
                     }
                 }
 
@@ -122,10 +128,22 @@ public class GamePanel extends JPanel {
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, deadDuckAlpha));
             g2d.drawImage(deadDuckImage, 
                 getWidth()/2 - deadDuckImage.getWidth(), 
-                getHeight()/2 - deadDuckImage.getHeight(), 
+                getHeight()/2 - deadDuckImage.getHeight() - 50, 
                 deadDuckImage.getWidth()*2, 
                 deadDuckImage.getHeight()*2, 
                 null);
+
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, textAlpha));
+            g2d.setColor(new Color(255, 255, 255));
+            g2d.setFont(new Font("Arial", Font.BOLD, 28));
+
+            String text = "PRESS SPACE TO RESTART";
+
+            int textWidth = g2d.getFontMetrics().stringWidth(text);
+            int textX = getWidth()/2 - textWidth/2;
+            int textY = getHeight() - 50;
+
+            g2d.drawString(text, textX, textY);
 
             g2d.dispose();
         }
