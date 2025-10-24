@@ -17,7 +17,7 @@ public class Logs {
         windowWidth = width;
         windowHeight = height;
         try {
-            logImage = ImageIO.read(getClass().getResource("/log.png"));
+            logImage = ImageIO.read(getClass().getResource("/images/log.png"));
 
             int originalWidth = logImage.getWidth();
             int originalHeight = logImage.getHeight();

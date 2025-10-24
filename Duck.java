@@ -30,7 +30,7 @@ public class Duck {
         duckPoint = new Point((int) duckX, (int) duckY);
 
         try {
-            duckImage = ImageIO.read(getClass().getResource("/duck3.png"));
+            duckImage = ImageIO.read(getClass().getResource("/images/duck3.png"));
 
             AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
             tx.translate(-duckImage.getWidth(), 0);

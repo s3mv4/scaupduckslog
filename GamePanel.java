@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
         setFocusable(true);
 
         try {
-            deadDuckImage = ImageIO.read(getClass().getResource("/duckdead.png"));
+            deadDuckImage = ImageIO.read(getClass().getResource("/images/duckdead.png"));
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("ducky will live another day (duckdead.png not found)");
         }
