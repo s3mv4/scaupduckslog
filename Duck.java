@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
@@ -16,6 +17,7 @@ public class Duck {
     private double rotationAngle = 0;
     int duckWidth;
     int duckHeight;
+    private boolean gameOver = false;
 
     public Duck() {
         duckX = 200;
@@ -93,7 +95,7 @@ public class Duck {
         LinkedList<Point> breadPoints = bread.getBreadPoints();
         Point minimalPoint = null;
 
-        duckY += 5;
+        duckY += 3;
 
         if (breadPoints == null || breadPoints.isEmpty()) {
             return;
@@ -105,11 +107,11 @@ public class Duck {
         movementAngle = Math.atan2(minimalPoint.y - duckPoint.y, minimalPoint.x - duckPoint.x);
         rotationAngle = movementAngle + Math.PI / 2;
 
-        duckX += Math.cos(movementAngle) * 5;
-        duckY += Math.sin(movementAngle) * 5;
+        duckX += Math.cos(movementAngle) * 4;
+        duckY += Math.sin(movementAngle) * 4;
     }
 
-    public void checkCollision(Bread bread) {
+    public void checkBreadCollision(Bread bread) {
         LinkedList<Point> breadPoints = bread.getBreadPoints();
         Point removePoint = null;
 
@@ -127,9 +129,28 @@ public class Duck {
         }
     }
 
-    public void update(Bread bread) {
+    public void checkLogsCollision(Logs logs) {
+        ArrayList<Point> logPoints = logs.getLogPoints();
+
+        for (Point logPoint : logPoints) {
+            if (logPoint.x < duckX + duckWidth / 2
+                && logPoint.x + 110 > duckX - duckWidth / 2
+                && logPoint.y < duckY + duckWidth / 2
+                && logPoint.y + 25 > duckY - duckWidth / 2) {
+                    System.out.println("Game over digga");
+                    gameOver = true;
+                }
+        }
+    }
+    
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
+    public void update(Bread bread, Logs logs) {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
-        checkCollision(bread);
+        checkBreadCollision(bread);
+        checkLogsCollision(logs);
     }
 }

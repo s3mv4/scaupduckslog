@@ -82,9 +82,11 @@ public class Logs extends JPanel {
 
     public void update() {
         for (Point logPoint : logPoints) {
-            logPoint.y += 5; 
+            logPoint.y += 3; 
         }
     }
 
-    
+    public ArrayList<Point> getLogPoints() {
+        return logPoints;
+    }
 }

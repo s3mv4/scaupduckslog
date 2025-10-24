@@ -15,11 +15,15 @@ public class GamePanel extends JPanel {
         Timer timer = new Timer(1000/frameRate, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (duck != null && duck.getGameOver()) {
+                    ((Timer)e.getSource()).stop();
+                    return;
+                }
                 if (bread != null) {
                     bread.update();
                 }
                 if (duck != null) {
-                    duck.update(bread);
+                    duck.update(bread, logs);
                 }
                 if (logs != null) {
                     logs.update();
