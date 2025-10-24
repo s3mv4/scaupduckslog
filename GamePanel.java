@@ -16,14 +16,11 @@ public class GamePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (bread != null) {
                     bread.update();
-                    repaint();
                 }
-
                 if (logs != null) {
                     logs.update();
-                    repaint();
                 }
-
+                repaint();
             }
         });
         timer.start();

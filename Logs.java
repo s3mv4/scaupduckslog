@@ -3,9 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.IOException;
+import java.nio.file.Path;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.util.ArrayList;
+import java.util.TimerTask;
 
 
 
@@ -13,56 +17,48 @@ import javax.swing.Timer;
 public class Logs extends JPanel {
 
     private BufferedImage logImage;
-    private final int logHeight = 100;
+    private final int logHeight = 110;
     private final int logWidth = 25;
-    private int[] xPosition = {0, 101, 202, 303};
-    private int[] yPosition = {0, 0, 0, 0};
+    private ArrayList<Point> logPoints= new ArrayList<>();
 
-    Timer logTimer;
-    private int movement = 0;
-    private int speed = 3;
-
+    private Timer logGameTimer;
+    private Timer logSpawTimer;
 
     public Logs() {
 
-       
-        
+
         try {
             logImage = ImageIO.read(getClass().getResource("/log.png"));
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("opa");
-        }
+        }   
 
-        logTimer = new Timer(100, new ActionListener() { 
+        addLogs();
 
-            @Override
+       Timer logGameTimer = new Timer(100000,new ActionListener() {
+           
             public void actionPerformed(ActionEvent e) {
-
-                
-
-                for (int i = 0; i < yPosition.length; i++) {
-                    yPosition[i] += speed;
-                
-                    if (yPosition[i] > 700) {
-                        yPosition[i] = 0;
-                    }
-                }
-
-                if (movement != 0 && speed < 50) {
-                    speed += 2;
-                    movement = movement + 1;
-                }
-
+                update();
                 repaint();
             }
+
+        }
+        );
+        logGameTimer.start();
+
+        Timer logSpawnTimer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addLogs();
+                
+            }
         });
-
-        logTimer.start();
-
-            
-        
+        logSpawnTimer.start();
+    
+        logSpawnTimer.setRepeats(true);
+        logSpawnTimer.setCoalesce(true); 
 
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -71,17 +67,49 @@ public class Logs extends JPanel {
      
 
     public void draw(Graphics g) {
+        
+        for (Point logPoint : logPoints ) {
+            g.drawImage(logImage, logPoint.x, logPoint.y, logHeight, logWidth, null);
 
-        for (int i = 0; i < xPosition.length; i++) {
-            if (logImage != null) {
-                g.drawImage(logImage, xPosition[i], yPosition[i], logHeight, logWidth, null);
-            }
         }
+
 
     }
 
-    public void update() {
+    public void addLogs() {
+        double randomNum;
+        int logAmount = 0;
 
+        for (int i = 0; i < 4; i++) {
+            randomNum = Math.random();
+            if (randomNum >= 0.5) {
+                logPoints.add(new Point(i*125, 0));
+                logAmount += 1;
+            }
+        }
+        
+        if (logAmount == 4) {
+            System.out.println("Digga");
+            randomNum = Math.round(Math.random()*3) + 1;
+            logPoints.remove((int)(logPoints.size() - randomNum));
+        }
+    }
+
+    public void update() {
+        for (Point logPoint : logPoints) {
+            logPoint.y += 5; 
+        }
+
+         
+
+        // run every 5 sekunden HEUTE FERTIG!!!
+
+       
+        
+       
+
+        
+        
     }
 
     
