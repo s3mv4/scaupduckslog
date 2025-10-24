@@ -31,9 +31,8 @@ public class Logs {
                 logWidth = logSize;
                 logHeight = (int) (logSize / aspectRatio);
             }
-            System.out.println(logHeight + ", " + logWidth);
         } catch (IOException | IllegalArgumentException e) {
-            System.err.println("opa");
+            System.err.println("opa (log.png not found)");
         }   
     }
 

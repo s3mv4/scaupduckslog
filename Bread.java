@@ -1,19 +1,28 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.*;
+import java.io.IOException;
 import java.util.LinkedList;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Bread implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
-    private final int breadSize = 10;
+    private final int breadSize = 20;
+    private BufferedImage breadImage;
+
+    public Bread() {
+        try {
+            breadImage = ImageIO.read(getClass().getResource("/images/bread.png"));
+        } catch (IOException | IllegalArgumentException e) {
+            System.err.println("bread eaten ;P (bread.png not found)");
+        }
+    }
 
     public void draw(Graphics g) {
         g.setColor(new Color(139, 69, 19));
         for (Point breadPoint : breadPoints) {
-            g.fillRect(breadPoint.x - breadSize/2, 
-                breadPoint.y - breadSize/2, 
-                breadSize, 
-                breadSize);
+            g.drawImage(breadImage, breadPoint.x, breadPoint.y, breadSize, breadSize, null);
         }
     }
 

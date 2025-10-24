@@ -145,7 +145,6 @@ public class Duck {
                 && logPoint.x + logs.getLogWidth() - collisionBuffer > duckX - duckWidth / 2
                 && logPoint.y + collisionBuffer < duckY + duckHeight / 2
                 && logPoint.y + logs.getLogHeight() - collisionBuffer > duckY - duckHeight / 2) {
-                    System.out.println("Game over digga");
                     gameOver = true;
                 }
         }
