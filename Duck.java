@@ -51,7 +51,7 @@ public class Duck {
             duckX -= duckWidth / 2;
             duckY -= duckHeight / 2;
         } catch (IOException | IllegalArgumentException e) {
-            System.err.println("ducky dead :( no quakking");
+            System.err.println("ducky dead :( no quakking (duck3.png not found)");
         }
     }
 
