@@ -11,6 +11,7 @@ public class Bread extends Sprite implements MouseListener {
     private final int breadSize = 20;
     private final int breadAmount = 3;
     private BufferedImage breadImage;
+    private boolean breadReady = true;
 
     public Bread() {
         try {
@@ -43,6 +44,10 @@ public class Bread extends Sprite implements MouseListener {
         return breadPoints;
     }
 
+    public void setBreadReady(boolean ready) {
+        breadReady = ready;
+    }
+
     @Override
     public void reset() {
         breadPoints.clear();
@@ -50,12 +55,17 @@ public class Bread extends Sprite implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (breadReady == false) {
+            return;
+        }
+
         Point clickedAt = e.getPoint();
         if (breadPoints.size() == breadAmount) {
             breadPoints.removeFirst();
         }
         breadPoints.add(clickedAt);
         e.getComponent().repaint();
+        breadReady = false;
     }
 
     @Override

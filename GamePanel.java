@@ -13,6 +13,7 @@ public class GamePanel extends JPanel {
     private Logs logs;
     public int frameRate = 60;
     private int logCounter;
+    private int breadCounter;
     private BufferedImage deadDuckImage;
     private boolean drawDeadDuck = false;
     private float deadDuckAlpha = 0f;
@@ -62,10 +63,16 @@ public class GamePanel extends JPanel {
                     }
 
                     logCounter += 1;
-                    if (logCounter == 60) {
+                    if (logCounter == frameRate) {
                         logCounter = 0;
                         score += 1;
                         logs.addLogs();
+                    }
+
+                    breadCounter += 1;
+                    if (breadCounter == frameRate/2) {
+                        breadCounter = 0;
+                        bread.setBreadReady(true);
                     }
                 }
 
