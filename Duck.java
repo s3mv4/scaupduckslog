@@ -211,7 +211,7 @@ public class Duck extends Sprite {
         checkBreadCollision(bread);
         checkLogsCollision(logs);
 
-        if (duckY - duckHeight / 2 >= windowHeight) {
+        if (duckY >= windowHeight) {
             gameOver = true;
         }
     }
