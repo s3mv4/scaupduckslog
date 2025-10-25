@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 public class GamePanel extends JPanel {
@@ -16,6 +17,10 @@ public class GamePanel extends JPanel {
     private float deadDuckAlpha = 0f;
     private float textAlpha = 0f;
     private int score = 0;
+    private boolean deathSoundPlayed = false;
+    private Clip soundEffect;
+    private Clip backgroundMusic;
+    private boolean backgroundMusicPlaying = false;
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
@@ -32,7 +37,19 @@ public class GamePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (duck != null && duck.getGameOver()) {
                     drawDeadDuck = true;
+
+                    if (deathSoundPlayed == false) {
+                        backgroundMusic.stop();
+                        backgroundMusicPlaying = false;
+                        playAudio("/audio/suspense.wav", false);
+                        deathSoundPlayed = true;
+                    }
                 } else {
+                    if (backgroundMusicPlaying == false) {
+                        playAudio("/audio/Fluffing a Duck.wav", true);
+                        backgroundMusicPlaying = true;
+                    }
+
                     if (bread != null) {
                         bread.update();
                     }
@@ -78,6 +95,8 @@ public class GamePanel extends JPanel {
                     deadDuckAlpha = 0f;
                     textAlpha = 0f;
                     score = 0;
+                    soundEffect.stop();
+                    deathSoundPlayed = false;
 
                     if (logs != null) {
                         logs.reset();
@@ -170,6 +189,24 @@ public class GamePanel extends JPanel {
             g2d.drawString(text, textX, textY);
 
             g2d.dispose();
+        }
+    }
+
+    private void playAudio(String filePath, boolean repeatSound) {
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource(filePath));
+            if (repeatSound == true) {
+                backgroundMusic = AudioSystem.getClip();
+                backgroundMusic.open(audioIn);
+                backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+                backgroundMusic.start();
+            } else {
+                soundEffect = AudioSystem.getClip();
+                soundEffect.open(audioIn);
+                soundEffect.start();
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | NullPointerException e) {
+            System.err.println("please (don't) stop the music (" + filePath + " not found)");
         }
     }
 }
