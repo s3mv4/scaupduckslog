@@ -54,12 +54,12 @@ public class GamePanel extends JPanel {
                 }
 
                 if (drawDeadDuck && deadDuckAlpha < 1f) {
-                    deadDuckAlpha += 0.005f;
+                    deadDuckAlpha += 0.007f;
                     if (deadDuckAlpha >= 1.0f) {
                         deadDuckAlpha = 1f;
                     }
                 } else if (drawDeadDuck && textAlpha < 1f) {
-                    textAlpha += 0.005f;
+                    textAlpha += 0.007f;
                     if (textAlpha >= 1.0f) {
                         textAlpha = 1f;
                     }
