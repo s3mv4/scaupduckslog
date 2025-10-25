@@ -101,7 +101,9 @@ public class GamePanel extends JPanel {
                     deadDuckAlpha = 0f;
                     textAlpha = 0f;
                     score = 0;
-                    soundEffect.stop();
+                    if (soundEffect != null) {
+                        soundEffect.stop();
+                    }
                     deathSoundPlayed = false;
 
                     for (Sprite sprite : sprites) {
