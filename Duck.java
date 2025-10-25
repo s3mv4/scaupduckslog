@@ -21,8 +21,6 @@ public class Duck extends Sprite {
     private boolean gameOver = false;
     private int windowWidth;
     private int windowHeight;
-    private double rotatedDuckWidth;
-    private double rotatedDuckHeight;
     private Bread bread;
     private Logs logs;
     private int leftHitboxBuffer = 20;
@@ -208,9 +206,6 @@ public class Duck extends Sprite {
     public void update() {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
-
-        rotatedDuckWidth  = duckWidth * Math.abs(Math.cos(rotationAngle)) + duckHeight * Math.abs(Math.sin(rotationAngle));
-        rotatedDuckHeight = duckWidth * Math.abs(Math.sin(rotationAngle)) + duckHeight * Math.abs(Math.cos(rotationAngle));
 
         updateHitbox();
         checkBreadCollision(bread);
