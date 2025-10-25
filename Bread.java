@@ -9,6 +9,7 @@ import javax.swing.*;
 public class Bread implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
     private final int breadSize = 20;
+    private final int breadAmount = 3;
     private BufferedImage breadImage;
 
     public Bread() {
@@ -47,7 +48,7 @@ public class Bread implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         Point clickedAt = e.getPoint();
-        if (breadPoints.size() == 5) {
+        if (breadPoints.size() == breadAmount) {
             breadPoints.removeFirst();
         }
         breadPoints.add(clickedAt);
