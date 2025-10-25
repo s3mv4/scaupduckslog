@@ -67,10 +67,16 @@ public class Logs extends Sprite{
             logPoint.y += 3; 
         }
 
+        ArrayList<Point> logPointsToRemove = new ArrayList<>();
+
         for (Point logPoint : logPoints) {
             if (logPoint.y >= windowHeight) {
-                logPoints.remove(logPoint);
+                logPointsToRemove.add(logPoint);
             }
+        }
+
+        for (Point logPointToRemove : logPointsToRemove) {
+            logPoints.remove(logPointToRemove);
         }
     }
 
