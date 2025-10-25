@@ -57,7 +57,10 @@ public class Logs extends Sprite{
         
         if (logAmount == 4) {
             randomNum = Math.round(Math.random()*3) + 1;
-            logPoints.remove((int)(logPoints.size() - randomNum));
+            logPoints.remove((int) (logPoints.size() - randomNum));
+        } else if (logAmount == 0) {
+            randomNum = Math.round(Math.random()*3);
+            logPoints.add(new Point((int) randomNum*(windowWidth/4), 0 - logHeight));
         }
     }
 
