@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
-public class Duck {
+public class Duck extends Sprite {
     private final int duckSize = 100;
     private final Point duckPoint;
     private double duckX;
@@ -23,6 +23,8 @@ public class Duck {
     private int collisionBuffer = 20;
     private double rotatedDuckWidth;
     private double rotatedDuckHeight;
+    private Bread bread;
+    private Logs logs;
 
     public Duck(int width, int height) {
         windowWidth = width;
@@ -59,6 +61,7 @@ public class Duck {
         }
     }
 
+    @Override
     public void draw(Graphics g) {
         if (duckImage == null) {
             return;
@@ -100,7 +103,7 @@ public class Duck {
 
     public void rotateDuck(Bread bread) {
         LinkedList<Point> breadPoints = bread.getBreadPoints();
-        Point minimalPoint = null;
+        Point minimalPoint;
 
         duckY += 3;
 
@@ -153,7 +156,16 @@ public class Duck {
         return gameOver;
     }
 
-    public void update(Bread bread, Logs logs) {
+    public void setBread(Bread bread) {
+        this.bread = bread;
+    }
+
+    public void setLogs(Logs logs) {
+        this.logs = logs;
+    }
+
+    @Override
+    public void update() {
         rotateDuck(bread);
         duckPoint.setLocation((int) duckX, (int) duckY);
 
@@ -168,6 +180,7 @@ public class Duck {
         }
     }
 
+    @Override
     public void reset() {
         duckX = windowWidth/2;
         duckY = windowHeight/2;

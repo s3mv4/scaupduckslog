@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Bread implements MouseListener {
+public class Bread extends Sprite implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
     private final int breadSize = 20;
     private final int breadAmount = 3;
@@ -20,6 +20,7 @@ public class Bread implements MouseListener {
         }
     }
 
+    @Override
     public void draw(Graphics g) {
         g.setColor(new Color(139, 69, 19));
         for (Point breadPoint : breadPoints) {
@@ -27,6 +28,7 @@ public class Bread implements MouseListener {
         }
     }
 
+    @Override
     public void update() {
         for (Point breadPoint : breadPoints) {
             breadPoint.y += 3;
@@ -41,6 +43,7 @@ public class Bread implements MouseListener {
         return breadPoints;
     }
 
+    @Override
     public void reset() {
         breadPoints.clear();
     }

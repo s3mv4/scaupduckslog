@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class GamePanel extends JPanel {
     private Clip soundEffect;
     private Clip backgroundMusic;
     private boolean backgroundMusicPlaying = false;
+    private ArrayList<Sprite> sprites = new ArrayList<>();
 
     public GamePanel() {
         setBackground(new Color(15, 50, 180));
@@ -50,16 +52,13 @@ public class GamePanel extends JPanel {
                         backgroundMusicPlaying = true;
                     }
 
-                    if (bread != null) {
-                        bread.update();
-                    }
-
                     if (duck != null) {
-                        duck.update(bread, logs);
+                        duck.setBread(bread);
+                        duck.setLogs(logs);
                     }
 
-                    if (logs != null) {
-                        logs.update();
+                    for (Sprite sprite : sprites) {
+                        sprite.update();
                     }
 
                     logCounter += 1;
@@ -98,16 +97,8 @@ public class GamePanel extends JPanel {
                     soundEffect.stop();
                     deathSoundPlayed = false;
 
-                    if (logs != null) {
-                        logs.reset();
-                    }
-
-                    if (bread != null) {
-                        bread.reset();
-                    }
-
-                    if (duck != null) {
-                        duck.reset();
+                    for (Sprite sprite : sprites) {
+                        sprite.reset();
                     }
                 }
             }
@@ -116,14 +107,17 @@ public class GamePanel extends JPanel {
 
     public void setBread(Bread bread) {
         this.bread = bread;
+        sprites.add(bread);
     }
 
     public void setDuck(Duck duck) {
         this.duck = duck;
+        sprites.add(duck);
     }
 
     public void setLogs(Logs logs) {
         this.logs = logs;
+        sprites.add(logs);
     }
 
     @Override
@@ -142,17 +136,8 @@ public class GamePanel extends JPanel {
 
         g2d.drawString(scoreText, scoreTextX, scoreTextY);
 
-
-        if (bread != null) {
-            bread.draw(g);
-        }
-
-        if (duck != null) {
-            duck.draw(g);
-        }
-
-        if (logs != null) {
-            logs.draw(g);
+        for (Sprite sprite : sprites) {
+            sprite.draw(g);
         }
 
         if (drawDeadDuck && deadDuckImage != null) {

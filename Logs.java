@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-public class Logs {
+public class Logs extends Sprite{
     private final int logSize = 110;
     private BufferedImage logImage;
     private int logWidth;
@@ -36,6 +36,7 @@ public class Logs {
         }   
     }
 
+    @Override
     public void draw(Graphics g) {
         for (Point logPoint : logPoints ) {
             g.drawImage(logImage, logPoint.x, logPoint.y, logWidth, logHeight, null);
@@ -60,9 +61,16 @@ public class Logs {
         }
     }
 
+    @Override
     public void update() {
         for (Point logPoint : logPoints) {
             logPoint.y += 3; 
+        }
+
+        for (Point logPoint : logPoints) {
+            if (logPoint.y >= windowHeight) {
+                logPoints.remove(logPoint);
+            }
         }
     }
 
@@ -78,6 +86,7 @@ public class Logs {
         return logHeight;
     }
 
+    @Override
     public void reset() {
         logPoints.clear();
     }
