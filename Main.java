@@ -1,6 +1,11 @@
 import javax.swing.*;
 
+/**
+ * Main
+ * Initializes the game window and components.
+ */
 public class Main {
+    // Create the game window and add the game panel
     void update() {
         JFrame frame = new JFrame ("Scaup Ducks Log");
         GamePanel gamePanel = new GamePanel();

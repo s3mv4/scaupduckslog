@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
+/** 
+ * Logs
+ * Handles the generation of the logs on the screen using randomness.
+ * Obstacles for the duck to avoid.
+ */
 public class Logs extends Sprite{
     private final int logSize = 110;
     private BufferedImage logImage;
@@ -43,6 +48,7 @@ public class Logs extends Sprite{
         }
     }
 
+    // Randomly spawn 1-3 logs every second at the top of the window.
     public void addLogs() {
         double randomNum;
         int logAmount = 0;

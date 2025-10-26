@@ -7,6 +7,11 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
+/**
+ * GamePanel
+ * Main panel that handles the drawing and updating of everything in the game.
+ * Runs the game loop with a Swing timer.
+ */
 public class GamePanel extends JPanel {
     private Bread bread;
     private Duck duck;
@@ -35,6 +40,7 @@ public class GamePanel extends JPanel {
             System.err.println("ducky will live another day (duckdead.png not found)");
         }
 
+        // Game loop at 60fps
         Timer timer = new Timer(1000/frameRate, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,6 +135,8 @@ public class GamePanel extends JPanel {
         sprites.add(logs);
     }
 
+    // Draw all sprites and score.
+    // If game is over draw game over screen.
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -186,6 +194,7 @@ public class GamePanel extends JPanel {
         }
     }
 
+    // Method to play audio files.
     private void playAudio(String filePath, boolean repeatSound) {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource(filePath));

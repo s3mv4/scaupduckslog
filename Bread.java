@@ -6,6 +6,11 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/** 
+ * Bread
+ * Manages the bread pieces on the screen with a MouseListener.
+ * Lures the duck.
+ */
 public class Bread extends Sprite implements MouseListener {
     private final LinkedList<Point> breadPoints = new LinkedList<>();
     private final int breadSize = 20;
@@ -53,6 +58,8 @@ public class Bread extends Sprite implements MouseListener {
         breadPoints.clear();
     }
 
+    // Add a new piece of bread at the coordinates where the mouse is clicked.
+    // With delay and maximum amount of bread.
     @Override
     public void mousePressed(MouseEvent e) {
         if (breadReady == false) {

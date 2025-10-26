@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
+/** 
+ * Duck
+ * Manages duck sprite which moves toward the nearest bread piece and avoids logs.
+ * Handles rotation, movement and collisions.
+ */
 public class Duck extends Sprite {
     private final int duckSize = 100;
     private final Point duckPoint;
@@ -73,13 +78,13 @@ public class Duck extends Sprite {
 
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // Translate to the center of the duck
+        // Translate to the center of the duck.
         g2d.translate(duckPoint.x, duckPoint.y);
 
-        // Apply rotation (rotates around origin which is now duck center)
+        // Apply rotation around origin (duck center).
         g2d.rotate(rotationAngle);
 
-        // Duck already translated so no need for duckPoint.x and duckPoint.y
+        // Duck already translated so no need for duckPoint.x and duckPoint.y in x and y.
         if (rotationAngle > 0 && rotationAngle < Math.PI) {
             flipped = false;
             g2d.drawImage(duckImage, - duckWidth / 2, - duckHeight / 2, duckWidth, duckHeight, null);
@@ -90,6 +95,7 @@ public class Duck extends Sprite {
 
         g2d.dispose();
 
+        // Draw hitbox.
         // Graphics2D g2d2 = (Graphics2D) g.create();
         // g2d2.setColor(new Color(255, 0, 0));
         // g2d2.draw(rotatedHitbox);
@@ -97,6 +103,7 @@ public class Duck extends Sprite {
 
     }
 
+    // Finds closest bread using recursion
     public Point findClosestBread(int index, Point minimalPoint, double minimalDistance, LinkedList<Point> breadPoints) {
         if (index > breadPoints.size() - 1) {
             return minimalPoint;
@@ -125,7 +132,7 @@ public class Duck extends Sprite {
 
         minimalPoint = findClosestBread(0, null, Double.MAX_VALUE, breadPoints);
 
-        // rotate duck towards minimalPoint
+        // Calculate angle for the movement of the duck and the rotation of the sprite.
         movementAngle = Math.atan2(minimalPoint.y - duckPoint.y, minimalPoint.x - duckPoint.x);
         rotationAngle = movementAngle + Math.PI / 2;
 
@@ -174,6 +181,8 @@ public class Duck extends Sprite {
         this.logs = logs;
     }
     
+    // Create a hitbox for the duck using the buffers from each direction
+    // and rotate the hitbox according to the angle of the image.
     public void updateHitbox() {
         int leftBuffer;
         int rightBuffer;
